@@ -28,3 +28,14 @@ def test_read_users(client, user_data):
             }
         ]
     }
+
+
+def test_update_user(client, user_data):
+    user_data['email'] = 'jones@mail.com'
+    response = client.put('/users/1', json=user_data)
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'username': user_data['username'],
+        'email': user_data['email'],
+    }
